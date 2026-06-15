@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rushill Nair | AI Engineer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,63 +25,49 @@
     </nav>
 
     <section class="hero">
-        <div class="cnn-animation-container">
+        <div class="cnn-architecture-container">
             
-            <div class="cnn-stage">
-                <div class="input-image-container">
-                    <img src="assets/profile.jpg" alt="Profile" class="profile-pic" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIvPjwvc3ZnPg=='">
+            <div class="net-stage">
+                <div class="f-map-container input-map">
+                    <img src="assets/profile.jpg" alt="Profile" class="profile-pic" id="source-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWxsPSIjMzMzIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIvPjwvc3ZnPg=='">
                     <div class="kernel-scanner"></div>
                 </div>
                 <span class="stage-label">Input Tensor</span>
             </div>
 
-            <div class="cnn-flow"><div class="flow-particle"></div></div>
+            <div class="connector"><div class="flow-dot delay-1"></div></div>
 
-            <div class="cnn-stage layers-stage">
-                <div class="cnn-layer-group group-1">
-                    <div class="feature-map layer-1"></div>
-                    <div class="feature-map layer-2"></div>
-                    <div class="feature-map layer-3"></div>
-                </div>
-                <div class="cnn-layer-group group-2">
-                    <div class="feature-map layer-1"></div>
-                    <div class="feature-map layer-2"></div>
-                </div>
-                <span class="stage-label">Conv & Pool</span>
+            <div class="net-stage stack">
+                <div class="f-map-container c1"><img class="f-map filter-edges"></div>
+                <div class="f-map-container c1"><img class="f-map filter-relu"></div>
+                <div class="f-map-container c1"><img class="f-map filter-abstract"></div>
+                <span class="stage-label">Conv_1</span>
             </div>
 
-            <div class="cnn-flow"><div class="flow-particle delay"></div></div>
+            <div class="connector"><div class="flow-dot delay-2"></div></div>
 
-            <div class="cnn-stage">
-                <div class="transformer-block">
-                    <div class="attention-head head-1">Q</div>
-                    <div class="attention-head head-2">K</div>
-                    <div class="attention-head head-3">V</div>
-                </div>
-                <span class="stage-label">Attention Heads</span>
+            <div class="net-stage stack">
+                <div class="f-map-container p1"><img class="f-map filter-pool"></div>
+                <div class="f-map-container p1"><img class="f-map filter-activation"></div>
+                <span class="stage-label">Max_Pool_1</span>
             </div>
 
-            <div class="cnn-flow"><div class="flow-particle delay-2"></div></div>
+            <div class="connector"><div class="flow-dot delay-3"></div></div>
 
-            <div class="cnn-stage">
-                <div class="fnn-network">
-                    <div class="fnn-layer hidden-layer">
-                        <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
-                    </div>
-                    <div class="fnn-layer output-layer">
-                        <div class="node out-1"></div><div class="node out-2"></div><div class="node out-3"></div>
-                    </div>
-                </div>
-                <span class="stage-label">Dense Layers</span>
+            <div class="net-stage dense-col">
+                <div class="d-node"></div><div class="d-node"></div><div class="d-node"></div><div class="d-node"></div><div class="d-node"></div>
+                <span class="stage-label">Dense_FC</span>
             </div>
 
-            <div class="cnn-flow"><div class="flow-particle delay-3"></div></div>
+            <div class="connector"><div class="flow-dot delay-4"></div></div>
 
-            <div class="cnn-stage hero-right">
-                <div class="output-console">
-                    <h1 id="output-text">Epoch 1/50... [Calculating Loss]</h1>
+            <div class="net-stage output-stage">
+                <p class="greeting-text">Hey this is,</p>
+                <div class="cnn-output-box">
+                    <span class="out-badge">CNN OUTPUT</span>
+                    <h1 id="output-text">Epoch 1/50... [Loss: 2.45]</h1>
                 </div>
-                <span class="stage-label">Streaming Output</span>
+                <p class="role-text">Machine Learning Engineer</p>
             </div>
 
         </div>
@@ -127,21 +115,25 @@
             <h2>Industry & Research</h2>
         </div>
         <div class="timeline">
+            
             <div class="timeline-item reveal">
                 <h3>Mahindra Group</h3>
                 <span>Data Science GET · AI Division</span>
-                <p>Built production ML systems for ForceCast tyre estimation pipelines and FastAPI deployment services. Processed over <strong>10M+ sensor datapoints</strong> for training vehicle dynamics models, achieving an estimated testing cost reduction of <strong>₹2.5L per day</strong> and achieving a significant SMAPE reduction from <strong>14% → 3%</p>
+                <p>Built production ML systems for ForceCast tyre estimation pipelines and FastAPI deployment services. Processed over <strong>10M+ sensor datapoints</strong> for training vehicle dynamics models, achieving an estimated testing cost reduction of <strong>₹2.5L per day</strong>.</p>
             </div>
+            
             <div class="timeline-item reveal">
                 <h3>IISc</h3>
                 <span>Machine Learning Research Intern</span>
-                <p>trained forecasting models for flood discharge using deep time-series architectures (TFT, SARIMAX) and uncertainty modelling.</p>
+                <p>Developed probabilistic forecasting systems for flood discharge using deep time-series architectures (TFT, SARIMAX) and uncertainty modelling, achieving a significant SMAPE reduction from <strong>14 → 3</strong> using ensemble systems.</p>
             </div>
+            
             <div class="timeline-item reveal">
                 <h3>LiquidMindAI</h3>
                 <span>Applied AI Intern</span>
-                <p>Designed retrieval-augmented generation (RAG) pipelines, retrieval optimisation, and legal document intelligence systems using Langchain, Hugging Face, Groq and Vector DB's.</p>
+                <p>Designed retrieval-augmented generation (RAG) pipelines, retrieval optimisation, and legal document intelligence systems using Neo4j and Qdrant vector embeddings.</p>
             </div>
+
         </div>
     </section>
 
@@ -154,7 +146,7 @@
             <div class="skill-box reveal">
                 <h3>Machine Learning</h3>
                 <ul>
-                    <li>XGBoost</li><li>Scikit-Learn</li><li>PyTorch</li><li>Optuna</li><li>SHAP</li><li>Numpy</li><li>Pandas</li>
+                    <li>XGBoost</li><li>TensorFlow</li><li>PyTorch</li><li>Optuna</li><li>SHAP</li>
                 </ul>
             </div>
             <div class="skill-box reveal">
