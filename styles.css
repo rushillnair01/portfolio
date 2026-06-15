@@ -57,7 +57,7 @@ body::before {
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.04),
+            rgba(255,255,255,.01),
             transparent 65%
         );
 
@@ -127,112 +127,135 @@ NAVBAR
 HERO
 ========================== */
 
-.hero {
+.hero{
 
-    min-height: 100vh;
 
-    display: flex;
-    align-items: center;
+min-height:100vh;
 
-    padding: 0 8%;
+display:flex;
+align-items:center;
+
+
 }
 
-.hero-content {
+.hero-layout{
 
-    max-width: 1000px;
+
+width:min(1400px,90%);
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:
+    400px 1fr;
+
+gap:120px;
+
+align-items:center;
+
+
 }
 
-.hero-label {
+.hero-left{
 
-    color: var(--muted);
 
-    font-size: .9rem;
+display:flex;
 
-    letter-spacing: 3px;
+flex-direction:column;
 
-    margin-bottom: 35px;
+gap:60px;
+
+
 }
 
-.hero h1 {
+.architecture{
 
-    font-size:
-        clamp(4rem, 10vw, 8rem);
 
-    line-height: .95;
+opacity:.85;
 
-    letter-spacing: -5px;
 
-    font-weight: 800;
 }
 
-.hero h1 span {
+.architecture-title{
 
-    color: white;
+
+color:#7a7a7a;
+
+margin-bottom:20px;
+
+letter-spacing:2px;
+
+font-size:.8rem;
+
+text-transform:uppercase;
+
+
 }
 
-.hero-description {
+.hero-right h1{
 
-    margin-top: 35px;
 
-    max-width: 650px;
+font-size:
+    clamp(5rem,10vw,9rem);
 
-    color: #b5b5b5;
+line-height:.9;
 
-    font-size: 1.25rem;
+letter-spacing:-5px;
 
-    line-height: 1.8;
+font-weight:800;
+
+
 }
 
-.hero-buttons {
+.hero-right h1 span{
 
-    margin-top: 50px;
 
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
+color:#6f6f6f;
+
+
 }
 
-.btn-primary,
-.btn-secondary {
+.hero-role{
 
-    padding: 14px 30px;
 
-    border-radius: 999px;
+margin-top:25px;
 
-    text-decoration: none;
+font-size:1.4rem;
 
-    transition: .3s;
+color:#a5a5a5;
+
+
 }
 
-.btn-primary {
+.hero-tags{
 
-    background: white;
-    color: black;
 
-    font-weight: 600;
+margin-top:35px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:12px;
+
+
 }
 
-.btn-primary:hover {
+.hero-tags span{
 
-    transform:
-        translateY(-3px);
+
+border:1px solid #2d2d2d;
+
+padding:12px 18px;
+
+border-radius:999px;
+
+color:#bdbdbd;
+
+
 }
 
-.btn-secondary {
-
-    border:
-        1px solid var(--border);
-
-    color: white;
-}
-
-.btn-secondary:hover {
-
-    border-color: #555;
-
-    transform:
-        translateY(-3px);
-}
 
 /* ==========================
 IMPACT SECTION
@@ -829,4 +852,102 @@ MOBILE
     margin-bottom:10px;
 
     border-radius:10px;
+}
+
+.nodes{
+
+
+display:flex;
+gap:18px;
+
+
+}
+
+.nodes span{
+
+
+width:12px;
+height:12px;
+
+border-radius:50%;
+
+background:#fff;
+
+animation:pulse 2s infinite;
+
+
+}
+
+.nodes span:nth-child(2){
+animation-delay:.2s;
+}
+
+.nodes span:nth-child(3){
+animation-delay:.4s;
+}
+
+.nodes span:nth-child(4){
+animation-delay:.6s;
+}
+
+.nodes span:nth-child(5){
+animation-delay:.8s;
+}
+
+@keyframes pulse{
+
+0%,100%{
+    opacity:.25;
+    transform:scale(1);
+}
+
+50%{
+    opacity:1;
+    transform:scale(1.6);
+}
+
+
+}
+
+.transformer-flow{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.transformer-flow span{
+
+    border:1px solid #303030;
+
+    border-radius:10px;
+
+    padding:10px 15px;
+
+    width:max-content;
+
+    color:#cfcfcf;
+
+    animation:flow 5s infinite;
+}
+
+.transformer-flow span:nth-child(2){
+    animation-delay:1s;
+}
+
+.transformer-flow span:nth-child(3){
+    animation-delay:2s;
+}
+
+@keyframes flow{
+
+    0%,100%{
+        transform:translateX(0);
+        opacity:.5;
+    }
+
+    50%{
+        transform:translateX(10px);
+        opacity:1;
+    }
 }
