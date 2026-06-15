@@ -18,10 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Dynamic Image Injection for Feature Maps
     const profileImgSrc = document.getElementById('source-img').src;
     const fMapImages = document.querySelectorAll('.f-map');
-    
-    fMapImages.forEach(img => {
-        img.src = profileImgSrc;
-    });
+    fMapImages.forEach(img => { img.src = profileImgSrc; });
 
     // 3. Simulated CNN "Training Epochs" Text Output
     const nameElement = document.getElementById("output-text");
@@ -60,20 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1500);
     }
 
-    // 4. Draw Synaptic Connections (Curved SVG Lines)
+    // 4. Draw Synaptic Connections (Curved SVG Lines + Data Flow)
     function drawConnections() {
-        // Only draw on larger screens (disables on mobile where it stacks vertically)
-        if (window.innerWidth <= 1200) {
-            document.getElementById('connections-svg').innerHTML = '';
-            return; 
-        }
-
         const svg = document.getElementById('connections-svg');
         const container = document.getElementById('cnn-container');
         if(!svg || !container) return;
 
         svg.innerHTML = ''; // Clear old lines
         const containerRect = container.getBoundingClientRect();
+        const isMobile = window.innerWidth <= 1200;
 
         function connectLayers(layerA, layerB, connectionType = "all") {
             const nodesA = document.querySelectorAll(`${layerA} .connectable`);
@@ -81,42 +73,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
             nodesA.forEach((nodeA, indexA) => {
                 nodesB.forEach((nodeB, indexB) => {
-                    // If straight connection, only connect matching indexes
+                    // Straight maps 1-to-1 indexes
                     if (connectionType === "straight" && indexA !== indexB) return;
 
                     const rectA = nodeA.getBoundingClientRect();
                     const rectB = nodeB.getBoundingClientRect();
 
-                    // Calculate center points relative to the SVG container
-                    const startX = rectA.right - containerRect.left;
-                    const startY = rectA.top + (rectA.height / 2) - containerRect.top;
-                    const endX = rectB.left - containerRect.left;
-                    const endY = rectB.top + (rectB.height / 2) - containerRect.top;
+                    let startX, startY, endX, endY, cp1X, cp1Y, cp2X, cp2Y;
 
-                    // Calculate Bezier control points for a smooth horizontal curve
-                    const cp1X = startX + (endX - startX) / 2;
-                    const cp1Y = startY;
-                    const cp2X = startX + (endX - startX) / 2;
-                    const cp2Y = endY;
+                    if (isMobile) {
+                        // Vertical Flow Layout (Top to Bottom)
+                        startX = rectA.left + (rectA.width / 2) - containerRect.left;
+                        startY = rectA.bottom - containerRect.top;
+                        endX = rectB.left + (rectB.width / 2) - containerRect.left;
+                        endY = rectB.top - containerRect.top;
 
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.setAttribute('d', `M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`);
-                    path.classList.add('connection-path');
-                    svg.appendChild(path);
+                        cp1X = startX;
+                        cp1Y = startY + (endY - startY) / 2;
+                        cp2X = endX;
+                        cp2Y = startY + (endY - startY) / 2;
+                    } else {
+                        // Horizontal Flow Layout (Left to Right)
+                        startX = rectA.right - containerRect.left;
+                        startY = rectA.top + (rectA.height / 2) - containerRect.top;
+                        endX = rectB.left - containerRect.left;
+                        endY = rectB.top + (rectB.height / 2) - containerRect.top;
+
+                        cp1X = startX + (endX - startX) / 2;
+                        cp1Y = startY;
+                        cp2X = startX + (endX - startX) / 2;
+                        cp2Y = endY;
+                    }
+
+                    const pathString = `M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
+
+                    // 1. Draw the faint static base line
+                    const pathBase = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    pathBase.setAttribute('d', pathString);
+                    pathBase.classList.add('connection-path-base');
+                    svg.appendChild(pathBase);
+
+                    // 2. Draw the glowing animated flowing data line on top
+                    const pathFlow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    pathFlow.setAttribute('d', pathString);
+                    pathFlow.classList.add('connection-path-flow');
+                    
+                    // Stagger the animation slightly to make it look organic and chaotic
+                    const randomDelay = Math.random() * 2;
+                    pathFlow.style.animationDelay = `-${randomDelay}s`;
+                    
+                    svg.appendChild(pathFlow);
                 });
             });
         }
 
-        // Draw the specific neural network pathways
-        connectLayers('.stage-input', '.stage-conv1', 'all');        // Input -> Conv1 (Fully Connected)
-        connectLayers('.stage-conv1', '.stage-relu1', 'straight');   // Conv1 -> ReLU1 (1-to-1 Straight Mapping)
-        connectLayers('.stage-relu1', '.stage-pool1', 'all');        // ReLU1 -> Pool1 (Fully Connected)
-        connectLayers('.stage-pool1', '.stage-conv2', 'all');        // Pool1 -> Conv2 (Fully Connected)
-        connectLayers('.stage-conv2', '.stage-dense', 'all');        // Conv2 -> Dense (Flatten / Fully Connected)
-        connectLayers('.stage-dense', '.stage-output', 'all');       // Dense -> Output (Output convergence)
+        // Draw connections
+        connectLayers('.stage-input', '.stage-conv1', 'all');
+        connectLayers('.stage-conv1', '.stage-relu1', 'straight');
+        connectLayers('.stage-relu1', '.stage-pool1', 'all');
+        connectLayers('.stage-pool1', '.stage-conv2', 'all');
+        connectLayers('.stage-conv2', '.stage-dense', 'all');
+        connectLayers('.stage-dense', '.stage-output', 'all');
     }
 
-    // Wait until images and layout fully load to draw lines, and redraw on window resize
-    window.addEventListener('load', drawConnections);
-    window.addEventListener('resize', drawConnections);
+    // Wait until layout is fully calculated, then draw lines
+    setTimeout(drawConnections, 300);
+    window.addEventListener('resize', () => {
+        // Debounce resize redrawing
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(drawConnections, 100);
+    });
 });
