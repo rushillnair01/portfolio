@@ -14,23 +14,23 @@ html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif; overflow-x: hidden; position: relative; }
 
 /* ==========================
-   AMBIENT WEBSITE ILLUMINATION
+   AMBIENT WEBSITE ILLUMINATION (White/Monochrome)
 ========================== */
 .ambient-glow {
     position: fixed; border-radius: 50%; filter: blur(150px); pointer-events: none; z-index: -1;
 }
 .glow-1 {
     top: -150px; left: -100px; width: 600px; height: 600px;
-    background: rgba(0, 255, 150, 0.05);
+    background: rgba(255, 255, 255, 0.03);
     animation: breathe 12s infinite alternate ease-in-out;
 }
 .glow-2 {
     bottom: 20%; right: -150px; width: 700px; height: 700px;
-    background: rgba(0, 150, 255, 0.04);
+    background: rgba(200, 220, 255, 0.02); /* Faint icy white */
     animation: breathe 18s infinite alternate-reverse ease-in-out;
 }
 @keyframes breathe {
-    0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+    0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
     100% { transform: scale(1.2) translate(50px, 30px); opacity: 1; }
 }
 
@@ -54,7 +54,7 @@ body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif
     position: relative; width: min(1400px, 98%); margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 5px;
 }
 
-/* SVG CONNECTIONS & FLOWING DATA ANIMATION */
+/* SVG CONNECTIONS & GLOWING DOTS ANIMATION */
 #connections-svg {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;
 }
@@ -62,12 +62,16 @@ body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif
     fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 1px;
 }
 .connection-path-flow {
-    fill: none; stroke: rgba(0, 255, 150, 0.8); stroke-width: 1.5px;
-    stroke-dasharray: 8 28; /* Dash length, gap length */
-    animation: dataFlow 1.2s linear infinite;
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.85); /* White dots */
+    stroke-width: 3px;                 /* Size of the dots */
+    stroke-linecap: round;             /* Makes the dashes perfectly round */
+    stroke-dasharray: 0 50;            /* 0 length dash (circle), 50px gap between dots */
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9)); /* White Glow */
+    animation: dataFlow 2.5s linear infinite; /* Slower, smooth flow */
 }
 @keyframes dataFlow {
-    to { stroke-dashoffset: -36; } /* Animates the dash along the curve */
+    to { stroke-dashoffset: -50; } /* Must perfectly match the gap size (50) to loop seamlessly */
 }
 
 .net-stage { display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 2; }
@@ -79,7 +83,7 @@ body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif
     position: relative; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2);
     background: #000; display: flex; justify-content: center; align-items: center;
 }
-.input-map { width: 140px; height: 140px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 0 20px rgba(0,255,150,0.1); }
+.input-map { width: 140px; height: 140px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 0 20px rgba(255,255,255,0.05); }
 .c1 { width: 55px; height: 55px; }
 .p1 { width: 45px; height: 45px; }
 .c2 { width: 35px; height: 35px; }
@@ -114,12 +118,12 @@ body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif
 .filter-c2-3 { filter: hue-rotate(300deg) saturate(200%) contrast(200%); }
 .filter-c2-4 { filter: grayscale(100%) invert(100%) brightness(0.5); }
 
-/* Sliding 3x3 Kernel Animation */
+/* Sliding 3x3 Kernel Animation (Updated to faint white) */
 .kernel-scanner {
     position: absolute; top: 0; left: 0; width: 45px; height: 45px;
-    border: 2px solid rgba(0, 255, 150, 0.9); background: rgba(0, 255, 150, 0.15);
-    box-shadow: 0 0 15px rgba(0, 255, 150, 0.4), inset 0 0 10px rgba(0, 255, 150, 0.2);
-    background-image: linear-gradient(to right, rgba(0, 255, 150, 0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 255, 150, 0.4) 1px, transparent 1px);
+    border: 2px solid rgba(255, 255, 255, 0.6); background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
     background-size: 15px 15px; z-index: 10; animation: convolutionScan 4s infinite steps(6, end);
 }
 @keyframes convolutionScan {
@@ -145,7 +149,7 @@ body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif
 .cnn-output-box {
     background: rgba(15, 15, 15, 0.8); border: 1px solid #444; padding: 25px 30px; border-radius: 12px;
     position: relative; width: 100%; display: flex; justify-content: center; align-items: center; min-height: 100px; z-index: 2;
-    box-shadow: 0 0 30px rgba(0, 255, 150, 0.05);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.04);
 }
 .out-badge {
     position: absolute; top: -10px; left: 15px; background: #222; border: 1px solid #444;
@@ -168,7 +172,7 @@ section { width: 100%; position: relative; z-index: 2; }
 .projects { padding: 100px 0; }
 .projects-grid { width: min(1200px,90%); margin: auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); gap: 30px; }
 .project-card { background: rgba(17,17,17,0.8); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 30px; padding: 35px; transition: .35s; }
-.project-card:hover { transform: translateY(-6px); border-color: rgba(0,255,150,0.3); box-shadow: 0 10px 30px rgba(0,255,150,0.05); }
+.project-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.3); box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
 .project-tag { color: var(--muted); font-size: .8rem; letter-spacing: 2px; }
 .project-card h3 { margin-top: 15px; font-size: 2rem; }
 .project-card p { margin-top: 18px; color: #c5c5c5; line-height: 1.8; }
@@ -201,7 +205,7 @@ section { width: 100%; position: relative; z-index: 2; }
 .contact p { margin-top: 30px; color: var(--muted); font-size: 1.2rem; }
 .contact-links { margin-top: 40px; display: flex; justify-content: center; gap: 30px; }
 .contact-links a { color: white; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 5px; transition: 0.3s; }
-.contact-links a:hover { border-bottom: 1px solid white; color: #00ff96; }
+.contact-links a:hover { border-bottom: 1px solid white; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 footer { padding: 50px; text-align: center; color: #666; border-top: 1px solid #1b1b1b; }
 
 /* ANIMATIONS */
