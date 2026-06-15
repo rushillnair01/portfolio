@@ -14,61 +14,65 @@ document.addEventListener("DOMContentLoaded", () => {
         { threshold: 0.15 }
     );
 
-    revealElements.forEach(element => {
-        observer.observe(element);
-    });
+    revealElements.forEach(element => { observer.observe(element); });
 
     // 2. CNN Feature Map Simulation
     const profileImgSrc = document.querySelector('.profile-pic').src;
     const featureMaps = document.querySelectorAll('.feature-map');
     
-    // Array of the CSS filter classes we created to simulate different layers
     const cnnFilters = [
-        'filter-edges',       // Layer 1: Edge detection
-        'filter-relu',        // Layer 2: High activation mapping
-        'filter-pool',        // Layer 3: Max pooling / blur
-        'filter-abstract',    // Layer 4: Deep feature abstraction
-        'filter-activation'   // Layer 5: Final conceptual mapping
+        'filter-edges', 'filter-relu', 'filter-pool', 'filter-abstract', 'filter-activation'
     ];
 
-    // Inject the image into each 3D layer and apply a unique filter
     featureMaps.forEach((map, index) => {
         const imgElement = document.createElement('img');
         imgElement.src = profileImgSrc;
-        // Assign the base class and a specific filter class
         imgElement.className = `feature-map-img ${cnnFilters[index % cnnFilters.length]}`;
         map.appendChild(imgElement);
     });
 
-    // 3. AI Output Name Decoding Effect
-    const nameElement = document.getElementById("output-name");
+    // 3. Simulated "Training Epochs" Text Stream Output
+    const nameElement = document.getElementById("output-text");
     
     if (nameElement) {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const finalName = nameElement.dataset.value;
-        let iterations = 0;
+        const finalText = "Hey this is, Rushill Nair;\nMachine Learning Engineer";
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*<>";
+        let epoch = 0;
+        const maxEpochs = 60; // Total frames for the animation to complete
         
-        // Wait 1.2 seconds before starting to sync with the "processing" flow
+        // Wait 1.5 seconds to let the user see the CNN filters load
         setTimeout(() => {
             const interval = setInterval(() => {
-                nameElement.innerText = finalName
-                    .split("")
-                    .map((letter, index) => {
-                        if(index < iterations) {
-                            return finalName[index];
-                        }
-                        if (letter === " ") return " ";
-                        return letters[Math.floor(Math.random() * 26)];
-                    })
-                    .join("");
-                
-                if(iterations >= finalName.length){
+                epoch++;
+                let currentText = "";
+                let progress = epoch / maxEpochs;
+
+                for (let i = 0; i < finalText.length; i++) {
+                    if (finalText[i] === " " || finalText[i] === "\n") {
+                        currentText += finalText[i];
+                        continue;
+                    }
+                    
+                    // Characters lock in sequentially from left to right as "progress" increases
+                    let charThreshold = i / finalText.length;
+                    
+                    if (progress > charThreshold + (Math.random() * 0.15)) {
+                        currentText += finalText[i]; // Lock in correct character
+                    } else {
+                        currentText += chars[Math.floor(Math.random() * chars.length)]; // Random noise
+                    }
+                }
+
+                // Preserve the line break for the layout
+                nameElement.innerText = currentText;
+
+                // Stop the loop and apply final HTML formatting
+                if (epoch >= maxEpochs) {
                     clearInterval(interval);
-                    nameElement.innerHTML = "Rushill <span>Nair</span>";
+                    nameElement.innerHTML = "Hey this is, <strong>Rushill Nair</strong>;<br><span class='hero-role'>Machine Learning Engineer</span>";
                 }
                 
-                iterations += 1 / 3;
-            }, 30);
-        }, 1200);
+            }, 60); // 60ms between each "epoch" update
+        }, 1500);
     }
 });

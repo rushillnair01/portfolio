@@ -9,187 +9,116 @@
     --max-width: 1250px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow-x: hidden;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif; overflow-x: hidden; }
 
 /* BACKGROUND GLOW */
 body::before {
-    content: "";
-    position: fixed;
-    top: -300px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1200px;
-    height: 1200px;
-    background: radial-gradient(circle, rgba(255,255,255,.02), transparent 65%);
-    pointer-events: none;
-    z-index: -1;
+    content: ""; position: fixed; top: -300px; left: 50%; transform: translateX(-50%);
+    width: 1200px; height: 1200px; background: radial-gradient(circle, rgba(255,255,255,.02), transparent 65%);
+    pointer-events: none; z-index: -1;
 }
 
 /* NAVBAR */
 #navbar {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    z-index: 999;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 22px 8%;
-    backdrop-filter: blur(18px);
-    background: rgba(10,10,10,.65);
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 999; display: flex; justify-content: space-between;
+    align-items: center; padding: 22px 8%; backdrop-filter: blur(18px); background: rgba(10,10,10,.65);
     border-bottom: 1px solid rgba(255,255,255,.04);
 }
-
 .nav-logo { font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; }
 .nav-links { display: flex; gap: 35px; }
 .nav-links a { color: var(--muted); text-decoration: none; transition: .25s; }
 .nav-links a:hover { color: white; }
 
 /* ==========================
-   HERO & CNN ANIMATION
+   HERO & ARCHITECTURE ANIMATION
 ========================== */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding-top: 80px; /* Offset for navbar */
-}
+.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; overflow-x: hidden; }
 
 .cnn-animation-container {
-    width: min(1400px, 90%);
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    width: min(1500px, 95%); margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
 
-.cnn-stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
+.cnn-stage { display: flex; flex-direction: column; align-items: center; position: relative; }
+.stage-label { margin-top: 25px; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; white-space: nowrap; }
 
-.stage-label {
-    margin-top: 25px;
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-/* Input Image Scanning */
+/* Stage 1: Input */
 .input-image-container {
-    position: relative;
-    width: 180px;  /* Increased size */
-    height: 180px; /* Increased size */
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 0 20px rgba(255,255,255,0.05);
+    position: relative; width: 140px; height: 140px; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border); box-shadow: 0 0 20px rgba(255,255,255,0.05);
 }
-
-.profile-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(100%) contrast(1.2);
-}
-
+.profile-pic { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2); }
 .scanner-line {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 10px rgba(255,255,255,0.5);
-    animation: scan 2.5s infinite linear;
+    position: absolute; top: 0; left: 0; right: 0; height: 2px; background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5); animation: scan 2.5s infinite linear;
 }
+@keyframes scan { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
 
-@keyframes scan {
-    0% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
+/* Data Flow Particles */
+.cnn-flow { width: 3vw; min-width: 25px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+.flow-particle { width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); animation: flowData 1.5s infinite linear; }
+.flow-particle.delay { animation-delay: 0.4s; }
+.flow-particle.delay-2 { animation-delay: 0.8s; }
+.flow-particle.delay-3 { animation-delay: 1.2s; }
+@keyframes flowData { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
 
-/* Isometric Hidden Layers */
-.layers-stage {
-    flex-direction: row;
-    gap: 40px;
-    perspective: 1000px;
-}
+/* Stage 2: Isometric CNN Hidden Layers */
+.layers-stage { flex-direction: row; gap: 20px; perspective: 1000px; margin: 0 20px; }
+.cnn-layer-group { position: relative; width: 80px; height: 120px; transform-style: preserve-3d; transform: rotateX(60deg) rotateZ(-45deg); }
+.group-2 { width: 60px; height: 90px; }
+.feature-map { position: absolute; width: 100%; height: 100%; border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(10, 10, 10, 0.8); border-radius: 6px; overflow: hidden; }
+.feature-map-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; mix-blend-mode: lighten; }
 
-.cnn-layer-group {
-    position: relative;
-    width: 110px; /* Made layers slightly larger to see the images */
-    height: 160px;
-    transform-style: preserve-3d;
-    transform: rotateX(60deg) rotateZ(-45deg);
-}
-
-.group-2 { width: 85px; height: 130px; }
-
-.feature-map {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(10, 10, 10, 0.8);
-    border-radius: 6px;
-    overflow: hidden; /* Keeps the injected image inside the borders */
-}
-
-/* Simulated CNN Activations */
-.feature-map-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.85;
-    mix-blend-mode: lighten;
-}
-
-/* The different feature map representations */
 .filter-edges { filter: grayscale(100%) invert(100%) contrast(400%) brightness(0.6); }
-.filter-pool { filter: blur(2px) grayscale(100%) contrast(200%); }
 .filter-relu { filter: sepia(100%) hue-rotate(180deg) saturate(300%) contrast(150%); }
+.filter-pool { filter: blur(2px) grayscale(100%) contrast(200%); }
 .filter-abstract { filter: grayscale(100%) contrast(500%) brightness(0.4); }
 .filter-activation { filter: invert(100%) sepia(100%) hue-rotate(90deg) saturate(400%); }
 
 .group-1 .layer-1 { transform: translateZ(0px); animation: pulseLayer 2s infinite 0s; }
-.group-1 .layer-2 { transform: translateZ(25px); animation: pulseLayer 2s infinite 0.2s; }
-.group-1 .layer-3 { transform: translateZ(50px); animation: pulseLayer 2s infinite 0.4s; }
-
+.group-1 .layer-2 { transform: translateZ(20px); animation: pulseLayer 2s infinite 0.2s; }
+.group-1 .layer-3 { transform: translateZ(40px); animation: pulseLayer 2s infinite 0.4s; }
 .group-2 .layer-1 { transform: translateZ(0px); animation: pulseLayer 2s infinite 0.6s; }
-.group-2 .layer-2 { transform: translateZ(25px); animation: pulseLayer 2s infinite 0.8s; }
+.group-2 .layer-2 { transform: translateZ(20px); animation: pulseLayer 2s infinite 0.8s; }
+@keyframes pulseLayer { 0%, 100% { border-color: rgba(255,255,255,0.15); } 50% { border-color: rgba(255,255,255,0.6); box-shadow: 0 0 15px rgba(255,255,255,0.2); } }
 
-@keyframes pulseLayer {
-    0%, 100% { border-color: rgba(255,255,255,0.15); }
-    50% { border-color: rgba(255,255,255,0.6); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+/* Stage 3: Transformer Block */
+.transformer-block { position: relative; width: 70px; height: 90px; transform-style: preserve-3d; transform: rotateX(50deg) rotateZ(-30deg); margin: 0 10px; }
+.attention-head {
+    position: absolute; width: 100%; height: 100%; border: 1px solid rgba(150, 200, 255, 0.4);
+    background: rgba(20, 50, 100, 0.4); border-radius: 8px; backdrop-filter: blur(2px);
+    display: flex; justify-content: center; align-items: center; font-size: 0.8rem; color: #88c0ff; font-weight: 700;
 }
+.head-1 { transform: translateZ(0px); animation: floatHead 3s infinite ease-in-out 0s; }
+.head-2 { transform: translateZ(30px); animation: floatHead 3s infinite ease-in-out 0.3s; }
+.head-3 { transform: translateZ(60px); animation: floatHead 3s infinite ease-in-out 0.6s; }
+@keyframes floatHead { 0%, 100% { transform: translateZ(var(--z, 0px)); box-shadow: 0 0 0 rgba(100,200,255,0); } 50% { transform: translateZ(calc(var(--z, 0px) + 5px)); box-shadow: 0 0 20px rgba(100,200,255,0.2); border-color: rgba(150, 200, 255, 0.8); } }
+.head-1 { --z: 0px; } .head-2 { --z: 30px; } .head-3 { --z: 60px; }
+
+/* Stage 4: Dense / FNN Network */
+.fnn-network { display: flex; gap: 25px; align-items: center; padding: 0 15px; }
+.fnn-layer { display: flex; flex-direction: column; gap: 15px; position: relative; }
+.node { width: 14px; height: 14px; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.4); border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+.hidden-layer .node { animation: nodePulse 1.5s infinite alternate; }
+.hidden-layer .node:nth-child(2) { animation-delay: 0.2s; } .hidden-layer .node:nth-child(3) { animation-delay: 0.4s; } .hidden-layer .node:nth-child(4) { animation-delay: 0.6s; }
+.output-layer .node { border-color: #fff; background: #fff; box-shadow: 0 0 15px #fff; animation: nodePulse 1s infinite alternate-reverse; }
+.output-layer .out-1 { animation-delay: 0.1s; } .output-layer .out-2 { animation-delay: 0.3s; } .output-layer .out-3 { animation-delay: 0.5s; }
+@keyframes nodePulse { 0% { opacity: 0.4; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.2); } }
+
+/* Stage 5: Output Console */
+.hero-right { align-items: flex-start; text-align: left; min-width: 320px; }
+.output-console {
+    background: rgba(15, 15, 15, 0.8); border: 1px solid #333; padding: 25px; border-radius: 12px;
+    font-family: monospace; width: 100%; min-height: 140px; display: flex; flex-direction: column; justify-content: center;
+}
+.output-console h1 { font-family: Inter, sans-serif; font-size: 2.2rem; line-height: 1.3; font-weight: 700; color: #fff; letter-spacing: -1px; }
+.output-console strong { font-weight: 900; background: linear-gradient(90deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-role { margin-top: 10px; font-size: 1.1rem; color: #88c0ff; font-weight: 500; display: block; font-family: monospace; }
 
 /* ==========================
-   OTHER SECTIONS (Unchanged layout structure)
+   OTHER SECTIONS
 ========================== */
-.impact-section { max-width: var(--max-width); margin: auto; padding: 100px 8%; display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 30px; }
-.impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 50px 35px; }
-.impact-card h2 { font-size: 4rem; margin-bottom: 20px; }
-.impact-card p { color: var(--muted); line-height: 1.8; }
-
 section { width: 100%; }
 .section-header { width: min(1200px,90%); margin: auto; margin-bottom: 60px; }
 .section-header span { color: var(--muted); letter-spacing: 3px; font-size: .85rem; }
@@ -210,11 +139,12 @@ section { width: 100%; }
 .tech-stack span { background: var(--surface-2); border-radius: 999px; padding: 10px 14px; color: #ddd; font-size: .85rem; }
 
 .experience { padding: 100px 0; }
-.timeline { width: min(900px,90%); margin: auto; display: flex; flex-direction: column; gap: 35px; }
+.timeline { width: min(900px,90%); margin: auto; display: flex; flex-direction: column; gap: 45px; }
 .timeline-item { border-left: 2px solid #2f2f2f; padding-left: 35px; }
-.timeline-item h3 { font-size: 1.6rem; }
-.timeline-item span { display: block; color: var(--muted); margin-top: 10px; }
-.timeline-item p { margin-top: 20px; color: #c4c4c4; line-height: 1.8; }
+.timeline-item h3 { font-size: 1.8rem; }
+.timeline-item span { display: block; color: var(--muted); margin-top: 10px; font-family: monospace; }
+.timeline-item p { margin-top: 20px; color: #c4c4c4; line-height: 1.8; font-size: 1.05rem; }
+.timeline-item strong { color: #fff; }
 
 .skills { padding: 100px 0; }
 .skills-grid { width: min(1200px,90%); margin: auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 30px; }
@@ -232,7 +162,8 @@ section { width: 100%; }
 .contact h2 { font-size: clamp(3rem,8vw,7rem); line-height: 1; }
 .contact p { margin-top: 30px; color: var(--muted); font-size: 1.2rem; }
 .contact-links { margin-top: 40px; display: flex; justify-content: center; gap: 30px; }
-.contact-links a { color: white; text-decoration: none; }
+.contact-links a { color: white; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 5px; transition: 0.3s; }
+.contact-links a:hover { border-bottom: 1px solid white; }
 footer { padding: 50px; text-align: center; color: #666; border-top: 1px solid #1b1b1b; }
 
 /* ANIMATIONS */
@@ -246,37 +177,12 @@ footer { padding: 50px; text-align: center; color: #666; border-top: 1px solid #
 /* ==========================
    MOBILE RESPONSIVENESS
 ========================== */
-@media(max-width: 900px){
+@media(max-width: 1100px){
     .nav-links { display: none; }
-    
-    .cnn-animation-container {
-        flex-direction: column;
-        padding-top: 40px;
-    }
-    
-    /* Change data flow lines to vertical on mobile */
-    .cnn-flow {
-        width: 2px;
-        height: 40px;
-        min-width: auto;
-    }
-    
-    .flow-particle {
-        width: 100%;
-        height: 50%;
-        background: linear-gradient(180deg, transparent, rgba(255,255,255,0.8), transparent);
-        animation: flowDataVertical 1.5s infinite linear;
-    }
-
-    @keyframes flowDataVertical {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(200%); }
-    }
-
-    .hero-right {
-        align-items: center;
-        text-align: center;
-        margin-top: 20px;
-    }
-    .hero-tags { justify-content: center; }
+    .cnn-animation-container { flex-direction: column; padding-top: 40px; gap: 30px; }
+    .cnn-flow { width: 2px; height: 30px; min-width: auto; }
+    .flow-particle { width: 100%; height: 50%; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.8), transparent); animation: flowDataVertical 1.5s infinite linear; }
+    @keyframes flowDataVertical { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+    .hero-right { align-items: center; text-align: center; }
+    .output-console { text-align: center; align-items: center; }
 }

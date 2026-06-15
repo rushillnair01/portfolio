@@ -33,9 +33,7 @@
                 <span class="stage-label">Input Tensor</span>
             </div>
 
-            <div class="cnn-flow">
-                <div class="flow-particle"></div>
-            </div>
+            <div class="cnn-flow"><div class="flow-particle"></div></div>
 
             <div class="cnn-stage layers-stage">
                 <div class="cnn-layer-group group-1">
@@ -47,40 +45,43 @@
                     <div class="feature-map layer-1"></div>
                     <div class="feature-map layer-2"></div>
                 </div>
-                <span class="stage-label">Conv & Pool Layers</span>
+                <span class="stage-label">Conv & Pool</span>
             </div>
 
-            <div class="cnn-flow">
-                <div class="flow-particle delay"></div>
+            <div class="cnn-flow"><div class="flow-particle delay"></div></div>
+
+            <div class="cnn-stage">
+                <div class="transformer-block">
+                    <div class="attention-head head-1">Q</div>
+                    <div class="attention-head head-2">K</div>
+                    <div class="attention-head head-3">V</div>
+                </div>
+                <span class="stage-label">Attention Heads</span>
             </div>
+
+            <div class="cnn-flow"><div class="flow-particle delay-2"></div></div>
+
+            <div class="cnn-stage">
+                <div class="fnn-network">
+                    <div class="fnn-layer hidden-layer">
+                        <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+                    </div>
+                    <div class="fnn-layer output-layer">
+                        <div class="node out-1"></div><div class="node out-2"></div><div class="node out-3"></div>
+                    </div>
+                </div>
+                <span class="stage-label">Dense Layers</span>
+            </div>
+
+            <div class="cnn-flow"><div class="flow-particle delay-3"></div></div>
 
             <div class="cnn-stage hero-right">
-                <h1 id="output-name" data-value="Rushill Nair">Rushill Nair</h1>
-                <p class="hero-role">AI Engineer</p>
-                <div class="hero-tags">
-                    <span>Machine Learning</span>
-                    <span>Generative AI</span>
-                    <span>Forecasting</span>
-                    <span>Research</span>
+                <div class="output-console">
+                    <h1 id="output-text">Epoch 1/50... [Calculating Loss]</h1>
                 </div>
-                <span class="stage-label">Output Classification</span>
+                <span class="stage-label">Streaming Output</span>
             </div>
 
-        </div>
-    </section>
-
-    <section class="impact-section">
-        <div class="impact-card reveal">
-            <h2>10M+</h2>
-            <p>Sensor datapoints used for training vehicle dynamics models.</p>
-        </div>
-        <div class="impact-card reveal">
-            <h2>₹2.5L</h2>
-            <p>Estimated testing cost reduction per day through predictive modelling.</p>
-        </div>
-        <div class="impact-card reveal">
-            <h2>14 → 3</h2>
-            <p>SMAPE reduction achieved using ensemble ML systems.</p>
         </div>
     </section>
 
@@ -129,17 +130,17 @@
             <div class="timeline-item reveal">
                 <h3>Mahindra Group</h3>
                 <span>Data Science GET · AI Division</span>
-                <p>Built production ML systems for tyre force estimation, feature engineering pipelines and FastAPI deployment services.</p>
-            </div>
-            <div class="timeline-item reveal">
-                <h3>LiquidMindAI</h3>
-                <span>Applied AI Intern</span>
-                <p>Designed RAG pipelines, retrieval optimisation and legal document analysis systems.</p>
+                <p>Built production ML systems for ForceCast tyre estimation pipelines and FastAPI deployment services. Processed over <strong>10M+ sensor datapoints</strong> for training vehicle dynamics models, achieving an estimated testing cost reduction of <strong>₹2.5L per day</strong>.</p>
             </div>
             <div class="timeline-item reveal">
                 <h3>IISc</h3>
                 <span>Machine Learning Research Intern</span>
-                <p>Developed probabilistic forecasting systems using TFT, SARIMAX and uncertainty modelling.</p>
+                <p>Developed probabilistic forecasting systems for flood discharge using deep time-series architectures (TFT, SARIMAX) and uncertainty modelling, achieving a significant SMAPE reduction from <strong>14 → 3</strong> using ensemble systems.</p>
+            </div>
+            <div class="timeline-item reveal">
+                <h3>LiquidMindAI</h3>
+                <span>Applied AI Intern</span>
+                <p>Designed retrieval-augmented generation (RAG) pipelines, retrieval optimisation, and legal document intelligence systems using Neo4j and Qdrant vector embeddings.</p>
             </div>
         </div>
     </section>
@@ -181,8 +182,8 @@
         <h2>Let's build something meaningful.</h2>
         <p>rushillnair45@gmail.com</p>
         <div class="contact-links">
-            <a href="#">LinkedIn</a>
-            <a href="#">GitHub</a>
+            <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
     </section>
 
